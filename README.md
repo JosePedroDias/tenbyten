@@ -3,10 +3,21 @@
 ## what is this
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
-The client-side is JS/SVG  
-The server-side will be in node.js
+The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)  
+The server-side will be in node.js (ONGOING)
+
+
+## roadmap
+
+* `DONE   ` mimic game rules and layout
+* `ONGOING` refactor logic so it can run in bot client and server-side
+* `TODO   ` deploy server to validate ongoing games and store highscores
+* `TODO`    make client use server
+* `TODO   ` create sfx w/ webaudio
+
 
 ----
+
 
 ## resources
 
@@ -22,7 +33,9 @@ The server-side will be in node.js
 * <https://github.com/lloyd/node-toobusy> <https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5/>
 * <https://github.com/dudleycarr/ratelimit.js>
 
+
 ----
+
 
 ## server-side highscores
 
