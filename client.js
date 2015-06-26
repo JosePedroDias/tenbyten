@@ -1,13 +1,10 @@
 (function() {
     'use strict';
 
-    var c = window.common;
+    var c = window.common(true, 42);
 
     var initialState = c.initialState;
     var playPiece = c.playPiece;
-    var seq = c.seq;
-    var renderPiece = c.renderPiece;
-    var renderMatrix = c.renderMatrix;
     var renderState = c.renderState;
 
 
@@ -26,4 +23,3 @@
     console.log( renderState(st) );
 
 })();
-
