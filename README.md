@@ -3,16 +3,17 @@
 ## what is this
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
-The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)  
-The server-side will be in node.js (ONGOING)
+The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
+The client-side is JS/SVG with shared logic with server -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index2.html)
+The server-side in node.js -> [here](http://rawgit.com/JosePedroDias/tenbyten/master/server.js) (ONGOING!)
 
 
 ## roadmap
 
 * `DONE   ` mimic game rules and layout
 * `DONE   ` refactor logic so it can run in bot client and server-side
+* `DONE   ` rewrite client with common refactoring
 * `ONGOING` deploy server to validate ongoing games and store highscores
-* `TODO   ` rewrite client with common refactoring
 * `TODO   ` make client use server
 * `TODO   ` create sfx w/ webaudio
 * `MEH    ` use captcha to validate player is not bot :P

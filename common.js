@@ -336,6 +336,7 @@
             seq: seq,
             random0n: random0n,
             randomBase32: randomBase32,
+            mtx: mtx,
             fetchFnComment: fetchFnComment,
             initialState: initialState,
             playPiece: playPiece,
