@@ -39,35 +39,36 @@ The server-side will be in node.js (ONGOING)
 
 ## server-side highscores
 
-estado tem q ser todo validado pelo servidor
-
-
-    estado mantido por sessão:
-    - matrix    (10x10 de booleano, inicialmente false)
-    - slots     (int[3], random de tipos de peças)
-    - stepNr    (0)
-    - score     (0)
-    - gameEnded (false)
+    game session state consists of:
+    - id    
+    - m     (10x10 of bool, initially false)
+    - slots (int[3], random pieceIdx)
+    - step  (int, initially 0)
+    - score (int, initially 0)
+    - ended (bool, initially false)
 
 
 ### endpoints:
     
     /new-game
-    {err:null, sessionId:<string>, slots:<int[3]>}
+    creates new game session, returning it
+    <gameSessionState> (regular scenario)
     
-    /play/<sessionId:string>/<stepNr:int>/<slotIndex:int>/<x:int>/<y:int>
-    {err:null, gameEnded:false, score:<int>, newPiece:<int>} (cenário normal)
-    {err:null, gameEnded:true, score:<int>}                  (se n há mais posições)
-    {err:'incorrect arguments'}                              (se erro nos parâmetros)
-    {err:'piece does not fit'}                               (se peça não cabe no tabuleiro)
-    {err:'inactive session'}                                 (se nunca existiu ou já restagada para high scores)
+    /play/<sessionId:string>/<step:int>/<slotIndex:int>/<x:int>/<y:int>
+    attempts to play the given command and returns updated state
+    <gameSessionState> (regular scenario. ended can be true if game over)
+    {err:'incorrect arguments'} (if malformed params)
+    {err:'piece does not fit'}  (if piece does not fit matrix)
+    {err:'inactive session'}    (if session does not exist or ended)
     
-    /highscore/<session-id:string>/<email:string>/<name:string>  (mail é para o gravatar)
-    (opcionalmente autentica com passportjs em vez de mail/user)
-    grava score e inutiliza sessão
-    {err:null, score:<int>}
-    {err:'incorrect arguments'}                              (se erro nos parâmetros)
-    {err:'inactive session'}                                 (se nunca existiu ou já restagada para high scores)
+    /highscore/<sessionId:string>/<email:string>/<name:string>
+    converts an ended state into a high score
+    (email is to use gravatar avatar)
+    (opcionally does auth via passportjs instead of direct email/name pair)
+    {score:<int>, rank:<int>}     (if you didn't make high score table, rank returns -1)
+    {err:'incorrect arguments'}   (if malformed params)
+    {err:'inactive session'}      (if session does not exist or ended)
     
     /highscores
+    returns array of ordered high scores
     {err:null, results:[{name:<string>, email:<string>, score:<int>}]}
