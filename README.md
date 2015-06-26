@@ -57,7 +57,7 @@ The server-side will be in node.js (ONGOING)
     /play/<sessionId:string>/<step:int>/<slotIndex:int>/<x:int>/<y:int>
     attempts to play the given command and returns updated state
     <gameSessionState> (regular scenario. ended can be true if game over)
-    {err:'incorrect arguments'} (if malformed params)
+    {err:'invalid arguments'}   (if malformed params)
     {err:'piece does not fit'}  (if piece does not fit matrix)
     {err:'inactive session'}    (if session does not exist or ended)
     
@@ -66,7 +66,7 @@ The server-side will be in node.js (ONGOING)
     (email is to use gravatar avatar)
     (opcionally does auth via passportjs instead of direct email/name pair)
     {score:<int>, rank:<int>}     (if you didn't make high score table, rank returns -1)
-    {err:'incorrect arguments'}   (if malformed params)
+    {err:'invalid arguments'}     (if malformed params)
     {err:'inactive session'}      (if session does not exist or ended)
     
     /highscores

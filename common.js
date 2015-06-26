@@ -236,7 +236,8 @@
                 m: m,
                 slots: piecesInSlots,
                 score: 0,
-                step: 0
+                step: 0,
+                ended: false
             }
         };
 
@@ -333,6 +334,7 @@
 
         return {
             seq: seq,
+            random0n: random0n,
             randomBase32: randomBase32,
             fetchFnComment: fetchFnComment,
             initialState: initialState,
