@@ -10,10 +10,12 @@ The server-side will be in node.js (ONGOING)
 ## roadmap
 
 * `DONE   ` mimic game rules and layout
-* `ONGOING` refactor logic so it can run in bot client and server-side
-* `TODO   ` deploy server to validate ongoing games and store highscores
-* `TODO`    make client use server
+* `DONE   ` refactor logic so it can run in bot client and server-side
+* `ONGOING` deploy server to validate ongoing games and store highscores
+* `TODO   ` rewrite client with common refactoring
+* `TODO   ` make client use server
 * `TODO   ` create sfx w/ webaudio
+* `MEH    ` use captcha to validate player is not bot :P
 
 
 ----
@@ -40,9 +42,9 @@ The server-side will be in node.js (ONGOING)
 ## server-side highscores
 
     game session state consists of:
-    - id    
+    - id    (session id)
     - m     (10x10 of bool, initially false)
-    - slots (int[3], random pieceIdx)
+    - slots (int[3], random pieceIdx, each can be false if empty)
     - step  (int, initially 0)
     - score (int, initially 0)
     - ended (bool, initially false)
@@ -52,23 +54,33 @@ The server-side will be in node.js (ONGOING)
     
     /new-game
     creates new game session, returning it
-    <gameSessionState> (regular scenario)
+    <gameSessionState> (always)
+    
     
     /play/<sessionId:string>/<step:int>/<slotIndex:int>/<x:int>/<y:int>
     attempts to play the given command and returns updated state
-    <gameSessionState> (regular scenario. ended can be true if game over)
-    {err:'invalid arguments'}   (if malformed params)
-    {err:'piece does not fit'}  (if piece does not fit matrix)
-    {err:'inactive session'}    (if session does not exist or ended)
+    {err:'invalid arguments'} (if malformed params)    
+    {err:'inactive session'}  (if session does not exist)
+    {err:'finished game'}     (if session already ended)
+    {err:'no piece found'}    (if slot has no piece)
+    {err:'piece did not fit'} (if piece does not fit matrix)
+    
     
     /highscore/<sessionId:string>/<email:string>/<name:string>
-    converts an ended state into a high score
-    (email is to use gravatar avatar)
-    (opcionally does auth via passportjs instead of direct email/name pair)
-    {score:<int>, rank:<int>}     (if you didn't make high score table, rank returns -1)
-    {err:'invalid arguments'}     (if malformed params)
-    {err:'inactive session'}      (if session does not exist or ended)
+    converts an ended state into a high score (email is to use gravatar avatar)
+    {score:<int>, rank:<int>} (regular scenario)
+    {err:'inactive session'}  (if session does not exist)
+    {err:'unfinished game'}   (if session hasn't ended)
+    
     
     /highscores
     returns array of ordered high scores
     {err:null, results:[{name:<string>, email:<string>, score:<int>}]}
+    
+    
+    /get/<sessionId:string>
+    for debugging purposes. sends current state, with matrix
+    
+    
+    /active-sessions
+    for debugging purposes. returns array of active sessions
