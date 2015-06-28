@@ -3,9 +3,9 @@
 ## what is this
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
-The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
-The client-side is JS/SVG with shared logic with server -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index2.html)
-The server-side in node.js -> [here](http://rawgit.com/JosePedroDias/tenbyten/master/server.js) (ONGOING!)
+The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)  
+The client-side is JS/SVG with shared logic with server -> try it [here]  (http://rawgit.com/JosePedroDias/tenbyten/master/index2.html)  
+The server-side in node.js -> [here]  (http://rawgit.com/JosePedroDias/tenbyten/master/server.js) (ONGOING!)
 
 
 ## roadmap
