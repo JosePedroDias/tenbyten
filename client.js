@@ -137,6 +137,13 @@
             });
         });
 
+        c.seq(3).forEach(function(i) {
+            if (sSlots[i]) {
+                sSlots[i].remove();
+                sSlots[i] = undefined;
+            }
+        });
+
         checkSlots();
     };
 
