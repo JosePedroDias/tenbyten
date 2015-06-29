@@ -216,7 +216,27 @@ if (true) {
 
     // this endpoint is for debugging purposes only
     app.get('/active-sessions', function (req, res) {
-        res.send(Object.keys(sessions));
+        //res.send(Object.keys(sessions));
+
+        var now = new Date().valueOf();
+        var ids = Object.keys(sessions);
+        var actives = ids.map(function(id) {
+            var st = sessions[id];
+            var dur = now - st.startedAt;
+            var stepDur = now - st.updatedAt;
+            return {
+                id: id,
+                step: st.step,
+                score: st.score,
+                ended: st.ended,
+                dur: ~~(dur / 1000),
+                stepDur: ~~(stepDur / 1000)
+            };
+        });
+
+        actives.sort(function(a, b) { return a.stepDur - b.stepDur; });
+
+        res.send(actives);
     });
 }
 

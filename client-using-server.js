@@ -157,7 +157,8 @@
         ajax({
             uri: [SERVER, 'new-game'].join('/'),
             cb: function(err, o) {
-                if (err) { return alert(err); }
+                //if (err) { return alert(err); }
+                if (err) { return alert('server down?'); }
                 if (o.err) { return alert(o.err); }
 
                 st = enrichFirstState(o);
@@ -296,7 +297,8 @@
                 ajax({
                     uri: [SERVER, 'play', st.id, st.step, slot, pos2[0], pos2[1]].join('/'),
                     cb: function(err, o) {
-                        if (err) { return alert(err); }
+                        //if (err) { return alert(err); }
+                        if (err) { return alert('server down?'); }
 
                         //if (o.err) { alert(o.err); }
 
@@ -322,7 +324,8 @@
                                     ajax({
                                         uri: [SERVER, 'highscore', st.id, encodeURIComponent(email), encodeURIComponent(name)].join('/'),
                                         cb: function(err, o) {
-                                            if (err) { return alert(err); }
+                                            //if (err) { return alert(err); }
+                                            if (err) { return alert('server down?'); }
 
                                             if (o.err) { alert(o.err); }
 

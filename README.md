@@ -14,7 +14,7 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * `DONE   ` refactor logic so it can run in bot client and server-side
 * `DONE   ` rewrite client with common refactoring
 * `DONE   ` deploy server to validate ongoing games and store highscores
-* `ONGOING` make client use server
+* `DONE   ` make client use server
 * `TODO   ` create sfx w/ webaudio
 * `MEH    ` use captcha to validate player is not bot :P
 
