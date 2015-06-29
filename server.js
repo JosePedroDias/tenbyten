@@ -19,8 +19,9 @@ var sessions = {};
 
 var highscores = [];
 try {
-    highscores = JSON.parse(fs.readFileSync('highscore.json'));
+    highscores = JSON.parse( fs.readFileSync('highscores.json').toString() );
 } catch (ex) {}
+highscores.sort(function(a, b) { return b.score - a.score; });
 
 
 /////////////////////
@@ -147,7 +148,7 @@ app.get('/highscore/:sessionId/:email/:name', function (req, res) {
     };
 
     highscores.push(line);
-    highscores.sort(function(a, b) { return a.score < b.score; });
+    highscores.sort(function(a, b) { return b.score - a.score; });
     var rank = highscores.indexOf(line);
 
     try {
