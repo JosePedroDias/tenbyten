@@ -1,10 +1,10 @@
 var express = require('express');
+var fs = require('fs');
 
-var c = require('./common')(true, 42);
+var c = require('./common')();
+//var c = require('./common')(true, 42); // deterministic random
 
-/*var initialState = c.initialState;
-var playPiece = c.playPiece;
-var randomBase32 = */
+
 
 /////////////////////
 
@@ -18,6 +18,9 @@ var PORT = 3000;
 var sessions = {};
 
 var highscores = [];
+try {
+    highscores = JSON.parse(fs.readFileSync('highscore.json'));
+} catch (ex) {}
 
 
 /////////////////////
@@ -41,10 +44,18 @@ var checkIntBetween0AndN = function(num, max) {
         num >= 0 &&
         num <= max
     );
-}
+};
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+};
+
 
 
 var app = express();
+
+app.use(allowCrossDomain);
 
 //app.use('/static', express.static('static'));
 
@@ -138,6 +149,10 @@ app.get('/highscore/:sessionId/:email/:name', function (req, res) {
     highscores.push(line);
     highscores.sort(function(a, b) { return a.score < b.score; });
     var rank = highscores.indexOf(line);
+
+    try {
+        fs.writeFileSync('highscores.json', JSON.stringify(highscores));
+    } catch (ex) {}
 
     delete sessions[p.sessionId];
 

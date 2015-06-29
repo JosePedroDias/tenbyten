@@ -242,6 +242,25 @@
         };
 
 
+        var processLines = function(m) {
+            var lines = findLines(m);
+
+            var deltaScore = 0;
+            if (lines.length > 0) { // lines occurred -> find positions and animate then to gray
+                var positions = mergeArrays(lines);
+                positions = uniques(positions, posFormatter);
+
+                deltaScore = positions.length;
+
+                positions.forEach(function(pos) {
+                    m.set(pos[0], pos[1], 0);
+                });
+            }
+
+            return deltaScore;
+        };
+
+
         var playPiece = function (slotNr, pos, state) {
             var piecesInSlots = state.slots;
             var m = state.m;
@@ -266,18 +285,7 @@
                     piecesInSlots[2] = randomPiece();
                 }
 
-                var lines = findLines(m);
-
-                if (lines.length > 0) { // lines occurred -> find positions and animate then to gray
-                    var positions = mergeArrays(lines);
-                    positions = uniques(positions, posFormatter);
-
-                    state.score += positions.length;
-
-                    positions.forEach(function (pos) {
-                        m.set(pos[0], pos[1], 0);
-                    });
-                }
+                state.score += processLines(m);
 
                 ++state.step;
 
@@ -339,10 +347,13 @@
             mtx: mtx,
             fetchFnComment: fetchFnComment,
             initialState: initialState,
+            setPiece: setPiece,
             playPiece: playPiece,
+            processLines: processLines,
             renderPiece: renderPiece,
             renderMatrix: renderMatrix,
-            renderState: renderState
+            renderState: renderState,
+            PIECES: PIECES
         };
 
     };

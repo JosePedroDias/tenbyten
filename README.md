@@ -3,9 +3,9 @@
 ## what is this
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
-The client-side is JS/SVG -> try it [here](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)  
-The client-side is JS/SVG with shared logic with server -> try it [here]  (http://rawgit.com/JosePedroDias/tenbyten/master/index2.html)  
-The server-side in node.js -> [here]  (http://rawgit.com/JosePedroDias/tenbyten/master/server.js) (ONGOING!)
+
+* [local play](http://rawgit.com/JosePedroDias/tenbyten/master/local.html)
+* [cli w/ server-side validation](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
 
 
 ## roadmap
@@ -13,8 +13,8 @@ The server-side in node.js -> [here]  (http://rawgit.com/JosePedroDias/tenbyten/
 * `DONE   ` mimic game rules and layout
 * `DONE   ` refactor logic so it can run in bot client and server-side
 * `DONE   ` rewrite client with common refactoring
-* `ONGOING` deploy server to validate ongoing games and store highscores
-* `TODO   ` make client use server
+* `DONE   ` deploy server to validate ongoing games and store highscores
+* `ONGOING` make client use server
 * `TODO   ` create sfx w/ webaudio
 * `MEH    ` use captcha to validate player is not bot :P
 
@@ -29,12 +29,12 @@ The server-side in node.js -> [here]  (http://rawgit.com/JosePedroDias/tenbyten/
 
 ### client-side libs:
 * <http://snapsvg.io/> <http://snapsvg.io/docs/>
-* <https://github.com/loov/jsfx> <https://rawgit.com/loov/jsfx/master/index.html>
+* NOT IN USE YET <https://github.com/loov/jsfx> <https://rawgit.com/loov/jsfx/master/index.html>
 
 ### server-side modules:
-* <http://passportjs.org/>
-* <https://github.com/lloyd/node-toobusy> <https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5/>
-* <https://github.com/dudleycarr/ratelimit.js>
+* NOT IN USE YET <http://passportjs.org/>
+* NOT IN USE YET <https://github.com/lloyd/node-toobusy> <https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5/>
+* NOT IN USE YET <https://github.com/dudleycarr/ratelimit.js>
 
 
 ----
