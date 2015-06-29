@@ -68,7 +68,8 @@
     var LS_KEY = 'ten_by_ten_high_score';
     var slotY = 100 + 50*0.25;
     var slotXs = c.seq(3).map(function(i) { return (i+0.5)*0.33333*100; });
-    var gap = hasTouch() ? -2*10 : 0; // finger gap so you can see the piece while dragging
+    var HAS_TOUCH = hasTouch();
+    var gap = HAS_TOUCH ? -2*10 : 0; // finger gap so you can see the piece while dragging
 
     var s;
     var sSlots = new Array(3);
@@ -418,8 +419,10 @@
         s.node.removeEventListener('mousedown',  setFullScreen);
         s.node.removeEventListener('touchstart', setFullScreen);
     };
-    //s.node.addEventListener('mousedown',  setFullScreen);
-    //s.node.addEventListener('touchstart', setFullScreen);
+    if (HAS_TOUCH) {
+        s.node.addEventListener('mousedown',  setFullScreen);
+        s.node.addEventListener('touchstart', setFullScreen);
+    }
 
 
 
