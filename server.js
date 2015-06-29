@@ -1,15 +1,39 @@
 var express = require('express');
+var winston = require('winston');
+
 var fs = require('fs');
 
 var c = require('./common')();
 //var c = require('./common')(true, 42); // deterministic random
 
 
+/////////////////////
+
+
+var PORT                  = 3000;
+var DEBUG                 = false;
+var SESSION_DURATION      = 24 * 60 * 60 * 1000; // 1 day
+var SESSION_STEP_DURATION =      10 * 60 * 1000; // 10 min
+var CLEANSWEEP_INTERVAL   =           10 * 1000; // 10 s
+
 
 /////////////////////
 
 
-var PORT = 3000;
+winston.remove(winston.transports.Console);
+
+if (DEBUG) {
+    winston.add(winston.transports.Console, {
+        level: 'debug',
+        timestamp: true
+    });
+}
+
+winston.add(winston.transports.File, {
+    level: 'info',
+    timestamp: true,
+    filename: 'app.log'
+});
 
 
 /////////////////////
@@ -35,7 +59,9 @@ var simplifySession = function(st, sendMatrix) {
         step: st.step,
         ended: st.ended,
         id: st.id,
-        m: sendMatrix ? c.renderMatrix(st.m) : undefined
+        m: sendMatrix ? c.renderMatrix(st.m) : undefined,
+        startedAt: sendMatrix ? st.startedAt : undefined,
+        updatedAt: sendMatrix ? st.updatedAt : undefined
     }
 };
 
@@ -56,9 +82,13 @@ var allowCrossDomain = function(req, res, next) {
 
 var app = express();
 
+app.set('x-powered-by', false);
+
 app.use(allowCrossDomain);
 
 //app.use('/static', express.static('static'));
+
+
 
 // new-game
 app.get('/new-game', function (req, res) {
@@ -67,20 +97,16 @@ app.get('/new-game', function (req, res) {
         sessionId = c.randomBase32(6);
     } while (sessionId in sessions);
     st.id = sessionId;
+    var now = new Date().valueOf();
+    st.startedAt = now;
+    st.updatedAt = now;
     sessions[sessionId] = st;
+    //console.log(st);
+    winston.log('info', 'new game %s from %s ua %s', sessionId, req.connection.remoteAddress, req.get('User-Agent'));
     res.send( simplifySession(st) );
 });
 
-// this endpoint is for debugging purposes only
-app.get('/get/:sessionId', function (req, res) {
-    var st = sessions[req.params.sessionId];
 
-    if (!st) {
-        return res.send({err:'inactive session'});
-    }
-
-    res.send( simplifySession(st, true) );
-});
 
 // play/asdasd/1/2/3/4
 app.get('/play/:sessionId/:step/:slotIdx/:x/:y', function (req, res) {
@@ -119,14 +145,14 @@ app.get('/play/:sessionId/:step/:slotIdx/:x/:y', function (req, res) {
     }
 
     st.ended = result;
+    st.updatedAt = new Date().valueOf();
+
+    winston.log('info', 'play %s #%s', st.id, st.step);
 
     res.send( simplifySession(st) );
 });
 
-// this endpoint is for debugging purposes only
-app.get('/active-sessions', function(req, res) {
-    res.send(Object.keys(sessions));
-});
+
 
 // highscore/asdasd/jose.pedro.dias%40gmail.com/Jos%C3%A9%20Pedro%20Dias
 app.get('/highscore/:sessionId/:email/:name', function (req, res) {
@@ -142,8 +168,8 @@ app.get('/highscore/:sessionId/:email/:name', function (req, res) {
     }
 
     var line = {
-        name: p.name,
-        email: p.email,
+        name:  p.name.trim(32),
+        email: p.email.trim(254),
         score: st.score
     };
 
@@ -157,36 +183,70 @@ app.get('/highscore/:sessionId/:email/:name', function (req, res) {
 
     delete sessions[p.sessionId];
 
+    winston.log('info', 'added high score %s', JSON.stringify(line));
+
     res.send({
         score: line.score,
         rank: rank
     });
 });
 
+
+
 // highscores
 app.get('/highscores', function (req, res) {
+    winston.log('info', 'highscores requested');
     res.send(highscores);
 });
 
+
+
+if (true) {
+    // this endpoint is for debugging purposes only
+    app.get('/get/:sessionId', function (req, res) {
+        var st = sessions[req.params.sessionId];
+
+        if (!st) {
+            return res.send({err: 'inactive session'});
+        }
+
+        res.send(simplifySession(st, true));
+    });
+
+
+    // this endpoint is for debugging purposes only
+    app.get('/active-sessions', function (req, res) {
+        res.send(Object.keys(sessions));
+    });
+}
+
+
+
 app.listen(PORT, function() {
-    console.log('tenbyten server listening on port %s...', PORT);
+    winston.log('info', 'tenbyten server listening on port %d...', PORT);
 });
 
 
-
-/*
-
+///////////////////
 
 
-var st = initialState();
-console.log( renderState(st) );
+// cleansweep - removes stale sessions
+setInterval(
+    function() {
+        winston.log('debug', 'cleansweep called');
+        var now = new Date().valueOf();
+        var ids = Object.keys(sessions);
+        ids.forEach(function(id) {
+            var st = sessions[id];
+            var dur = now - st.startedAt;
+            var stepDur = now - st.updatedAt;
+            winston.log('debug', '%s - dur: %s | step dur: %s', id, (dur/1000).toFixed(1), (stepDur/1000).toFixed(1));
 
-playPiece(0, [0, 0], st);
-console.log( renderState(st) );
-
-playPiece(1, [5, 0], st);
-console.log( renderState(st) );
-
-playPiece(2, [0, 5], st);
-console.log( renderState(st) );
-*/
+            if (dur > SESSION_DURATION || stepDur > SESSION_STEP_DURATION) {
+                winston.log('info', 'session %s removed');
+                delete sessions[id];
+            }
+        });
+    },
+    CLEANSWEEP_INTERVAL
+);

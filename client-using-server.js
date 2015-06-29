@@ -5,6 +5,7 @@
     //var c = window.common(true, 42);
 
     var SERVER = 'http://stage.sl.pt:3000';
+    //var SERVER = 'http://127.0.0.1:3000';
 
 
 
@@ -314,9 +315,9 @@
 
                             if (st.ended) {
                                 alert('game over', function() {
-                                    var name, email;
-                                    do { name  = window.prompt('name?',  ''); } while (!name);
-                                    do { email = window.prompt('email?', ''); } while (!email);
+                                    var name = '', email = '';
+                                    do { name  = window.prompt('name?',  ''); } while (!name.trim());
+                                    do { email = window.prompt('email?', ''); } while (!email.trim());
 
                                     ajax({
                                         uri: [SERVER, 'highscore', st.id, encodeURIComponent(email), encodeURIComponent(name)].join('/'),
