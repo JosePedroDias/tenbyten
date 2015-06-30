@@ -152,29 +152,40 @@
         return (i < 0.5) ? 2*i : 1 - 2*(i-0.5) ;
     };
 
-    var updateFromMatrix = function() {
-        c.seq(10).forEach(function(y) {
-            c.seq(10).forEach(function(x) {
+    var updateFromState = function() {
+        if (st.addedPieces) {
+            st.addedPieces.forEach(function(pos) {
+                var r = sMatrix.get(pos[0], pos[1]);
+                r.attr('class', 'fill-' + st.pieceType);
+            });
+        }
+
+        if (st.removedPieces) {
+            st.removedPieces.forEach(function(pos) {
+                var x = pos[0];
+                var y = pos[1];
                 var v = st.m.get(x, y);
                 var r = sMatrix.get(x, y);
-                var c0 = r.attr('class');
-                var c1 = 'fill-' + v;
+                r.attr('class', 'fill-' + v);
 
-                if (c0 === c1) { return; }
-
-                /*if (v === 0) {
-                    r.animate({
-                        opacity: 0,
-                        width: 0,
-                        height: 0,
-                        x: x*10+4.25,
-                        y: y*10+4.25
-                    }, 5000, pingpong);
-                } TODO MUST ANIMATE TRANSITIONAL PIECE RECTS */
-
-                r.attr('class', c1);
+                r.animate({
+                    opacity: 0,
+                    width: 0,
+                    height: 0,
+                    x: x*10+4.25,
+                    y: y*10+4.25
+                }, 400, pingpong);
             });
-        });
+        }
+        else {
+            c.seq(10).forEach(function(y) {
+                c.seq(10).forEach(function (x) {
+                    var v = st.m.get(x, y);
+                    var r = sMatrix.get(x, y);
+                    r.attr('class', 'fill-' + v);
+                });
+            });
+        }
     };
 
 
@@ -201,7 +212,7 @@
 
                 updateScore(0);
 
-                updateFromMatrix();
+                updateFromState();
 
                 c.seq(3).forEach(function(i) {
                     if (sSlots[i]) {
@@ -229,6 +240,9 @@
             });
         });
 
+        delete st.addedPieces;
+        delete st.removedPieces;
+
         //console.log(st);
         return st;
     };
@@ -240,13 +254,15 @@
         var m = st.m;
 
         st = srvSt;
-        c.setPiece(p, pos, m);
+
+        st.pieceType = p.t;
+        st.addedPieces = c.setPiece(p, pos, m);
 
         st.slots = srvSt.slots.map(function (pieceIdx) {
             return ( (pieceIdx === false) ? undefined : c.PIECES[pieceIdx] );
         });
 
-        c.processLines(m)
+        st.removedPieces = c.processLines(m, true);
 
         st.m = m;
 
@@ -349,7 +365,7 @@
                             st = enrichPlayState(st, o, slot, pos2);
 
                             updateScore(st.score);
-                            updateFromMatrix();
+                            updateFromState();
 
                             if (st.ended) {
                                 alert('game over', function() {

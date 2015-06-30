@@ -216,8 +216,13 @@
 
 
         var setPiece = function (p, delta, m) {
-            p.p.forEach(function (pos) {
-                m.set(pos[0] + delta[0], pos[1] + delta[1], p.t);
+            return p.p.map(function (pos) {
+                var pos2 = [
+                    pos[0] + delta[0],
+                    pos[1] + delta[1]
+                ];
+                m.set(pos2[0], pos2[1], p.t);
+                return pos2;
             });
         };
 
@@ -244,12 +249,14 @@
         };
 
 
-        var processLines = function(m) {
+        var processLines = function(m, returnPositionsInstead) {
             var lines = findLines(m);
 
             var deltaScore = 0;
+            var positions = [];
+
             if (lines.length > 0) { // lines occurred -> find positions and animate then to gray
-                var positions = mergeArrays(lines);
+                positions = mergeArrays(lines);
                 positions = uniques(positions, posFormatter);
 
                 deltaScore = positions.length;
@@ -259,7 +266,7 @@
                 });
             }
 
-            return deltaScore;
+            return returnPositionsInstead ? positions : deltaScore;
         };
 
 
