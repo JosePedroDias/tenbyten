@@ -105,6 +105,7 @@
 
     var alert = function(msg, cb) {
         var g = s.group();
+        g.attr('opacity', 0);
         g.addClass('alert');
 
         var r = s.rect(-5, -10, 110, 140);
@@ -120,12 +121,16 @@
         }
 
         var onClick = function() {
-            g.remove();
-            if (cb) { cb(); }
+            g.animate({opacity:0}, 500, mina.easeinout, function() {
+                g.remove();
+                if (cb) { cb(); }
+            });
         };
 
         g.node.addEventListener('mousedown',  onClick);
         g.node.addEventListener('touchstart', onClick);
+
+        g.animate({opacity:1}, 500, mina.easeinout);
 
         return g;
     };
