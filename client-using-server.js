@@ -11,7 +11,6 @@
 
     var ajax = function(o) {
         var xhr = new XMLHttpRequest();
-        //if (o.creds) { xhr.withCredentials = true; }
         xhr.open(o.method || 'GET', o.uri, true);
         var cbInner = function() {
             if (xhr.readyState === 4 && xhr.status > 199 && xhr.status < 300) {
@@ -43,21 +42,21 @@
 
 
 
-    var loadHighScore = function() {
+    var loadItem = function(key, defVal) {
         try {
-            var hsc = localStorage.getItem(LS_KEY);
-            if (hsc && hsc.length > 0) {
-                return parseInt(hsc, 10);
-            }
-        } catch (ex) {}
-        return 0;
+            var v = localStorage.getItem(key);
+            var v2 = parseFloat(v);
+            return (isFinite(v2) ? v2 : v);
+        } catch (ex) {
+            return defVal;
+        }
     };
 
 
 
-    var saveHighScore = function(hsc) {
+    var saveItem = function(key, val) {
         try {
-            localStorage.setItem(LS_KEY, hsc);
+            localStorage.setItem(key, val);
         } catch (ex) {}
     };
 
@@ -66,7 +65,9 @@
     var l = 10;
     var L = 9.5;
     var R = 1;
-    var LS_KEY = 'ten_by_ten_high_score';
+    var LS_HIGHSCORE = 'ten_by_ten_high_score';
+    var LS_NAME = 'ten_by_ten_name';
+    var LS_EMAIL = 'ten_by_ten_email';
     var slotY = 100 + 50*0.25;
     var slotXs = c.seq(3).map(function(i) { return (i+0.5)*0.33333*100; });
     var HAS_TOUCH = hasTouch();
@@ -77,7 +78,7 @@
     var sMatrix = c.mtx(10, 10);
 
     var st;
-    var highScore = loadHighScore(LS_KEY);
+    var highScore = loadItem(LS_HIGHSCORE, 0);
 
 
 
@@ -86,7 +87,7 @@
 
         if (score > highScore) {
             highScore = score;
-            saveHighScore(highScore);
+            saveItem(LS_HIGHSCORE, highScore);
             updateHighScore(highScore);
         }
 
@@ -317,9 +318,17 @@
 
                             if (st.ended) {
                                 alert('game over', function() {
-                                    var name = '', email = '';
-                                    do { name  = window.prompt('name?',  ''); } while (!name.trim());
-                                    do { email = window.prompt('email?', ''); } while (!email.trim());
+                                    var name = loadItem(LS_NAME, '');
+                                    var email = loadItem(LS_EMAIL, '');
+
+                                    do { name  = window.prompt('name?',  name);  } while (!name.trim());
+                                    do { email = window.prompt('email?', email); } while (!email.trim());
+
+                                    name = name.trim();
+                                    email = email.trim();
+
+                                    saveItem(LS_NAME, name);
+                                    saveItem(LS_EMAIL, email);
 
                                     ajax({
                                         uri: [SERVER, 'highscore', st.id, encodeURIComponent(email), encodeURIComponent(name)].join('/'),
@@ -357,11 +366,11 @@
 
     // setup scores
     (function() {
-        var sc = s.text(25, -2, '0');
+        var sc = s.text(25, -2, 0);
         sc.attr('text-anchor', 'middle');
         sc.addClass('score');
 
-        var hsc = s.text(75, -2, loadHighScore());
+        var hsc = s.text(75, -2, highScore);
         hsc.attr('text-anchor', 'middle');
         hsc.addClass('high-score');
 
