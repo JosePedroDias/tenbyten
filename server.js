@@ -12,9 +12,9 @@ var c = require('./common')();
 
 var PORT                  = 3000;
 var DEBUG                 = false;
-var SESSION_DURATION      = 24 * 60 * 60 * 1000; // 1 day
+var SESSION_DURATION      = 24 * 60 * 60 * 1000; //  1 day
 var SESSION_STEP_DURATION =      10 * 60 * 1000; // 10 min
-var CLEANSWEEP_INTERVAL   =           10 * 1000; // 10 s
+var CLEANSWEEP_INTERVAL   =       1 * 60 * 1000; //  1 min
 
 
 /////////////////////

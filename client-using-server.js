@@ -69,6 +69,7 @@
     var LS_HIGHSCORE = 'ten_by_ten_high_score';
     var LS_NAME = 'ten_by_ten_name';
     var LS_EMAIL = 'ten_by_ten_email';
+    var LS_THEME_LIGHT = 'ten_by_ten_theme_light';
     var slotY = 100 + 50*0.25;
     var slotXs = c.seq(3).map(function(i) { return (i+0.5)*0.33333*100; });
     var HAS_TOUCH = hasTouch();
@@ -80,6 +81,7 @@
 
     var st;
     var highScore = loadItem(LS_HIGHSCORE, 0);
+    var themeLight = loadItem(LS_THEME_LIGHT, 0);
 
 
 
@@ -490,6 +492,12 @@
 
 
     // toggle theme
+    var toggleTheme = function() {
+        themeLight = themeLight ? 0 : 1;
+        saveItem(LS_THEME_LIGHT, themeLight);
+        document.documentElement.className = (themeLight ? 'light' : 'dark');
+    };
+
     (function() {
         var g = s.group();
         g.addClass('toggle-theme');
@@ -507,11 +515,11 @@
         );
         p.attr('opacity', 0.75);
         g.add(p);
-        g.drag(c.noop, function() {
-            var theme = document.documentElement.className;
-            theme = (theme === 'dark') ? 'light' : 'dark';
-            document.documentElement.className = theme;
-        }, c.noop);
+        g.drag(c.noop, toggleTheme, c.noop);
+
+        if (themeLight) {
+            document.documentElement.className = 'light';
+        }
     })();
 
 

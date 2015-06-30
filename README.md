@@ -10,13 +10,17 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 
 ## roadmap
 
-* `DONE   ` mimic game rules and layout
-* `DONE   ` refactor logic so it can run in bot client and server-side
-* `DONE   ` rewrite client with common refactoring
-* `DONE   ` deploy server to validate ongoing games and store highscores
-* `DONE   ` make client use server
-* `TODO   ` create sfx w/ webaudio
-* `MEH    ` use captcha to validate player is not bot :P
+* `DONE   ` client: mimic game rules and layout
+* `DONE   ` both:   refactor logic so it can run in bot client and server-side
+* `DONE   ` client: rewrite client with common refactoring
+* `DONE   ` server: deploy server to validate ongoing games and store highscores
+* `DONE   ` client: make client use server
+* `DONE   ` client: store name, email and theme on localStorage
+* `DONE   ` client: add some animations (line shrinking pieces, alert fade)
+* `TODO   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
+* `TODO   ` server: try to limit server load (w/ toobusy)
+* `TODO   ` client: make it work on windows phone (lock scroll)
+* `TODO   ` client: create sfx w/ webaudio?
 
 
 ----
