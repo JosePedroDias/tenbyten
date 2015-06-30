@@ -45,6 +45,7 @@
     var loadItem = function(key, defVal) {
         try {
             var v = localStorage.getItem(key);
+            if (v === null) { return defVal; }
             var v2 = parseFloat(v);
             return (isFinite(v2) ? v2 : v);
         } catch (ex) {
@@ -79,6 +80,7 @@
 
     var st;
     var highScore = loadItem(LS_HIGHSCORE, 0);
+
 
 
     var animateText = function(selector, val) {
@@ -125,7 +127,6 @@
         if (msg) {
             var t = s.text(50, 60, msg);
             t.attr('text-anchor', 'middle');
-            g.addClass('score'); //ugly
             g.add(t);
         }
 
@@ -146,12 +147,32 @@
 
 
 
+    var pingpong = function(i) {
+        //i = mina.easeinout(i);
+        return (i < 0.5) ? 2*i : 1 - 2*(i-0.5) ;
+    };
+
     var updateFromMatrix = function() {
         c.seq(10).forEach(function(y) {
             c.seq(10).forEach(function(x) {
                 var v = st.m.get(x, y);
                 var r = sMatrix.get(x, y);
-                r.attr('class', 'fill-' + v);
+                var c0 = r.attr('class');
+                var c1 = 'fill-' + v;
+
+                if (c0 === c1) { return; }
+
+                /*if (v === 0) {
+                    r.animate({
+                        opacity: 0,
+                        width: 0,
+                        height: 0,
+                        x: x*10+4.25,
+                        y: y*10+4.25
+                    }, 5000, pingpong);
+                } TODO MUST ANIMATE TRANSITIONAL PIECE RECTS */
+
+                r.attr('class', c1);
             });
         });
     };
@@ -405,11 +426,10 @@
                         var lineText = [line.score, ' - ', line.name].join('');
                         var imgSrc = getGravatar(line.email, 80);
 
-                        var t = s.text(20, y0+10*idx, lineText);
-                        t.addClass('score');
+                        var t = s.text(10, y0+10*idx-0.9, lineText);
                         g.add(t);
 
-                        var img = s.image(imgSrc, 10, y0+10*idx-7.5, 8, 8);
+                        var img = s.image(imgSrc, 0, y0+10*idx-7.5, 8, 8);
                         g.add(img);
                     });
                 }

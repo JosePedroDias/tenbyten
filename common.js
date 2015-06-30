@@ -204,8 +204,10 @@
                 if (!p) {
                     return true;
                 }
-                return seq(10).every(function (y) {
-                    return seq(10).every(function (x) {
+                var maxY = 11 - p.dims[1];
+                var maxX = 11 - p.dims[0];
+                return seq(maxY).every(function (y) {
+                    return seq(maxX).every(function (x) {
                         return !doesPieceFit(p, [x, y], m);
                     });
                 });
@@ -332,20 +334,12 @@
         };
 
 
-        var fetchFnComment = function (f) {
-            return f.toString()
-                .replace(/^[^\/]+\/\*!?/, '')
-                .replace(/\*\/[^\/]+$/, '');
-        };
-
-
 
         return {
             seq: seq,
             random0n: random0n,
             randomBase32: randomBase32,
             mtx: mtx,
-            fetchFnComment: fetchFnComment,
             initialState: initialState,
             setPiece: setPiece,
             playPiece: playPiece,

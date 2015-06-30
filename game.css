@@ -20,9 +20,9 @@ svg {
     height: 100%;
 }
 
-.score, .high-score {
+text {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 8px;
+    font-size: 6px;
 }
 .matrix rect, text, path {
     transition: fill 400ms ease-in-out;
