@@ -81,6 +81,16 @@
     var highScore = loadItem(LS_HIGHSCORE, 0);
 
 
+    var animateText = function(selector, val) {
+        var sc = s.select(selector);
+        sc.attr('fontSize', 8);
+        sc.animate({fontSize:2, opacity:0}, 150, mina.linear, function() {
+            sc.attr('text', val);
+            sc.animate({fontSize:8, opacity:1}, 150);
+        });
+    };
+
+
 
     var updateScore = function() {
         var score = st.score;
@@ -91,14 +101,13 @@
             updateHighScore(highScore);
         }
 
-        //console.log(score);
-        s.select('.score').attr('text', score);
+        animateText('.score', score);
     };
 
 
 
     var updateHighScore = function(highScore) {
-        s.select('.high-score').attr('text', highScore);
+        animateText('.high-score', highScore);
     };
 
 
