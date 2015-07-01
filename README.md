@@ -17,10 +17,10 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * `DONE   ` client: make client use server
 * `DONE   ` client: store name, email and theme on localStorage
 * `DONE   ` client: add some animations (line shrinking pieces, alert fade)
+* `ONGOING` client: create sfx w/ webaudio?
 * `TODO   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
 * `TODO   ` server: try to limit server load (w/ toobusy)
 * `TODO   ` client: make it work on windows phone (lock scroll)
-* `TODO   ` client: create sfx w/ webaudio?
 
 
 ----

@@ -13,3 +13,6 @@
 
 
 #wget http://snapsvg.io/assets/js/snap.svg-min.js
+
+
+#wget https://raw.githubusercontent.com/loov/jsfx/master/jsfx.js
