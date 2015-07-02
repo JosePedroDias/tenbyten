@@ -139,7 +139,7 @@
         var onClick = function() {
             g.animate({opacity:0}, 500, mina.easeinout, function() {
                 g.remove();
-                if (cb) { cb(); }
+                if (cb) { cb(); cb = null; }
             });
         };
 
