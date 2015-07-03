@@ -5,8 +5,8 @@
     var noop = function() {};
     //var c = window.common(true, 42);
 
-    var SERVER = 'http://stage.sl.pt:3000';
-    //var SERVER = 'http://127.0.0.1:3000';
+    //var SERVER = 'http://stage.sl.pt:3000';
+    var SERVER = 'http://127.0.0.1:3000';
 
 
     var sfx;

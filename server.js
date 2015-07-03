@@ -1,6 +1,8 @@
 var express = require('express');
 var winston = require('winston');
 //var toobusy = require('toobusy');
+var responseTime = require('response-time');
+var stats = require('./stats');
 
 var fs = require('fs');
 
@@ -85,6 +87,18 @@ var app = express();
 
 app.set('x-powered-by', false);
 
+app.use(allowCrossDomain);
+app.use(responseTime());
+app.use(stats({
+    url:'/stats',
+    statusCheck: function() {
+        return {
+            activeSessions: Object.keys(sessions).length,
+            highscores:     highscores.length
+        }
+    }
+}));
+
 // middleware which blocks requests when we're too busy
 /*app.use(function(req, res, next) {
     if (toobusy()) {
@@ -94,8 +108,6 @@ app.set('x-powered-by', false);
         next();
     }
 });*/
-
-app.use(allowCrossDomain);
 
 
 
