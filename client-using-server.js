@@ -609,7 +609,7 @@
         s.node.removeEventListener('mousedown',  setFullScreen);
         s.node.removeEventListener('touchstart', setFullScreen);
     };
-    if (0) { //HAS_TOUCH) {
+    if (HAS_TOUCH) {
         s.node.addEventListener('mousedown',  setFullScreen);
         s.node.addEventListener('touchstart', setFullScreen);
     }
