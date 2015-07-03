@@ -2,25 +2,31 @@
     'use strict';
 
     var c = window.common();
+    var noop = function() {};
     //var c = window.common(true, 42);
 
     var SERVER = 'http://stage.sl.pt:3000';
     //var SERVER = 'http://127.0.0.1:3000';
 
 
+    var sfx;
+    var sfxLib = {"piece":{"Frequency":{"Start":139,"Min":397.1684554964304,"Slide":-0.8417304918635636,"Max":787},"Generator":{"Func":"sine","A":0.666447072965093,"ASlide":0.09330859859474003},"Phaser":{"Offset":0.1686953672207892,"Sweep":0.1867293302435428},"Volume":{"Sustain":0.05,"Decay":0.07,"Punch":1.06,"Attack":0.01,"Master":0.64}},"denied":{"Frequency":{"Start":439,"Slide":-0.83,"Max":1800,"Min":30,"ChangeSpeed":0,"DeltaSlide":0.2},"Generator":{"Func":"string","A":0.26,"B":0,"ASlide":0},"Filter":{"HP":0.15,"LP":1,"LPSlide":0.01,"LPResonance":0,"HPSlide":-0.41},"Volume":{"Sustain":0.2,"Decay":0.24,"Punch":0.24,"Master":0.52},"Vibrato":{"Depth":0},"Phaser":{"Offset":0.01}},"more":{"Frequency":{"Start":660,"Slide":0.51,"Max":1800,"DeltaSlide":-0.26},"Generator":{"Func":"synth","BSlide":0.17,"ASlide":-0.43},"Phaser":{"Offset":0.5935326264007017,"Sweep":-0.12729871559422462},"Volume":{"Sustain":0.19,"Decay":0.33,"Punch":0.43},"Vibrato":{"Depth":0.06,"Frequency":35.01,"DepthSlide":-0.31,"FrequencySlide":-0.2},"Filter":{"LPSlide":-0.1,"LPResonance":0.19,"HP":0.82}},"line":{"Frequency":{"Start":73,"Min":1362,"Max":1769.8050347110257,"Slide":0.31,"DeltaSlide":-0.31,"RepeatSpeed":0.32,"ChangeAmount":-5,"ChangeSpeed":0.43},"Vibrato":{"Depth":0.24,"DepthSlide":-0.68,"Frequency":14.01,"FrequencySlide":0.26},"Generator":{"Func":"string","A":0.6544020092114806,"B":0.6996062810067087,"ASlide":0.9439933458343148,"BSlide":-0.8408931125886738},"Guitar":{"A":0.4469512205105275,"B":0.4436649903655052,"C":0.3948096898384392},"Phaser":{"Offset":0.9750056094489992,"Sweep":0.02325455006211996},"Volume":{"Master":0.64,"Attack":0.08,"Sustain":0.25,"Punch":0.58,"Decay":0.85},"Filter":{"HP":0,"LPResonance":0}},"start":{"Frequency":{"Start":630.3844311484136,"Min":1380.6388479773887,"Max":193.86719992384315,"Slide":-0.3229934247210622,"DeltaSlide":-0.6038368884474039,"RepeatSpeed":1.1204902755562216,"ChangeAmount":-10.367714105173945,"ChangeSpeed":0.2946239020675421},"Vibrato":{"Depth":0.9577971468679607,"DepthSlide":-0.7794344457797706,"Frequency":25.28196069442202,"FrequencySlide":0.1149409250356257},"Generator":{"Func":"sine","A":0.8635227780323476,"B":0.15138676925562322,"ASlide":0.3261460131034255,"BSlide":-0.5880415849387646},"Guitar":{"A":0.9728574715554714,"B":0.6253615105524659,"C":0.34530656365677714},"Phaser":{"Offset":0.4403600045479834,"Sweep":0.38121403893455863},"Volume":{"Master":0.4,"Attack":0.2446278550196439,"Sustain":1.1377039570361376,"Punch":1.1716240528039634,"Decay":0.9491019332781434}}};
+    var setupSfx = function(activated) {
+        sfx = activated ? jsfx.Sounds(sfxLib) : {piece:noop, line:noop, start:noop, denied:noop, more:noop()};
+    };
 
-    var sfx = jsfx.Sounds({"piece":{"Frequency":{"Start":139,"Min":397.1684554964304,"Slide":-0.8417304918635636,"Max":787},"Generator":{"Func":"sine","A":0.666447072965093,"ASlide":0.09330859859474003},"Phaser":{"Offset":0.1686953672207892,"Sweep":0.1867293302435428},"Volume":{"Sustain":0.05,"Decay":0.07,"Punch":1.06,"Attack":0.01,"Master":0.64}},"denied":{"Frequency":{"Start":439,"Slide":-0.83,"Max":1800,"Min":30,"ChangeSpeed":0,"DeltaSlide":0.2},"Generator":{"Func":"string","A":0.26,"B":0,"ASlide":0},"Filter":{"HP":0.15,"LP":1,"LPSlide":0.01,"LPResonance":0,"HPSlide":-0.41},"Volume":{"Sustain":0.2,"Decay":0.24,"Punch":0.24,"Master":0.52},"Vibrato":{"Depth":0},"Phaser":{"Offset":0.01}},"more":{"Frequency":{"Start":660,"Slide":0.51,"Max":1800,"DeltaSlide":-0.26},"Generator":{"Func":"synth","BSlide":0.17,"ASlide":-0.43},"Phaser":{"Offset":0.5935326264007017,"Sweep":-0.12729871559422462},"Volume":{"Sustain":0.19,"Decay":0.33,"Punch":0.43},"Vibrato":{"Depth":0.06,"Frequency":35.01,"DepthSlide":-0.31,"FrequencySlide":-0.2},"Filter":{"LPSlide":-0.1,"LPResonance":0.19,"HP":0.82}},"line":{"Frequency":{"Start":73,"Min":1362,"Max":1769.8050347110257,"Slide":0.31,"DeltaSlide":-0.31,"RepeatSpeed":0.32,"ChangeAmount":-5,"ChangeSpeed":0.43},"Vibrato":{"Depth":0.24,"DepthSlide":-0.68,"Frequency":14.01,"FrequencySlide":0.26},"Generator":{"Func":"string","A":0.6544020092114806,"B":0.6996062810067087,"ASlide":0.9439933458343148,"BSlide":-0.8408931125886738},"Guitar":{"A":0.4469512205105275,"B":0.4436649903655052,"C":0.3948096898384392},"Phaser":{"Offset":0.9750056094489992,"Sweep":0.02325455006211996},"Volume":{"Master":0.64,"Attack":0.08,"Sustain":0.25,"Punch":0.58,"Decay":0.85},"Filter":{"HP":0,"LPResonance":0}},"start":{"Frequency":{"Start":630.3844311484136,"Min":1380.6388479773887,"Max":193.86719992384315,"Slide":-0.3229934247210622,"DeltaSlide":-0.6038368884474039,"RepeatSpeed":1.1204902755562216,"ChangeAmount":-10.367714105173945,"ChangeSpeed":0.2946239020675421},"Vibrato":{"Depth":0.9577971468679607,"DepthSlide":-0.7794344457797706,"Frequency":25.28196069442202,"FrequencySlide":0.1149409250356257},"Generator":{"Func":"sine","A":0.8635227780323476,"B":0.15138676925562322,"ASlide":0.3261460131034255,"BSlide":-0.5880415849387646},"Guitar":{"A":0.9728574715554714,"B":0.6253615105524659,"C":0.34530656365677714},"Phaser":{"Offset":0.4403600045479834,"Sweep":0.38121403893455863},"Volume":{"Master":0.4,"Attack":0.2446278550196439,"Sustain":1.1377039570361376,"Punch":1.1716240528039634,"Decay":0.9491019332781434}}});
 
 
-
-    var ajax = function(o) {
+    var ajax = function ajax(o) {
         var xhr = new XMLHttpRequest();
         xhr.open(o.method || 'GET', o.uri, true);
         var cbInner = function() {
             if (xhr.readyState === 4 && xhr.status > 199 && xhr.status < 300) {
                 return o.cb(null, JSON.parse(xhr.response));
             }
-            o.cb('error requesting ' + o.uri);
+            o.cb('error requesting ' + o.uri, function() { // on error, 2nd argument becomes optional retry function
+                ajax(o);
+            });
         };
         xhr.onload  = cbInner;
         xhr.onerror = cbInner;
@@ -74,6 +80,7 @@
     var LS_NAME = 'ten_by_ten_name';
     var LS_EMAIL = 'ten_by_ten_email';
     var LS_THEME_LIGHT = 'ten_by_ten_theme_light';
+    var LS_SFX_ON = 'ten_by_ten_sfx_on';
     var slotY = 100 + 50*0.25;
     var slotXs = c.seq(3).map(function(i) { return (i+0.5)*0.33333*100; });
     var HAS_TOUCH = hasTouch();
@@ -86,6 +93,9 @@
     var st;
     var highScore = loadItem(LS_HIGHSCORE, 0);
     var themeLight = loadItem(LS_THEME_LIGHT, 0);
+    var sfxOn = loadItem(LS_SFX_ON, 0);
+
+    setupSfx(sfxOn);
 
 
 
@@ -139,7 +149,7 @@
         var onClick = function() {
             g.animate({opacity:0}, 500, mina.easeinout, function() {
                 g.remove();
-                if (cb) { cb(); cb = null; }
+                if (cb) { cb(); cb = undefined; }
             });
         };
 
@@ -149,6 +159,90 @@
         g.animate({opacity:1}, 500, mina.easeinout);
 
         return g;
+    };
+
+
+
+    // auxiliary alert to capture input and display ajax state
+    var roundtrip = function() {
+        //console.log('roundtrip starting...');
+
+        var g = s.group();
+        g.attr('opacity', 0);
+        g.addClass('alert');
+
+        var r = s.rect(-5, -10, 110, 140);
+        r.attr('fill', 'fill-0');
+        r.attr('opacity', 0.75);
+        g.add(r);
+
+        var t = s.text(50, 60, 'sending...');
+        t.attr('text-anchor', 'middle');
+        g.add(t);
+
+        var setText = function(msg) {
+            t.attr('text', msg);
+        };
+
+        var state = 0; // 0=waiting, 1=ok, 2=failed
+
+        var onDone = function(cb) {
+            g.animate({opacity:0}, 500, mina.easeinout, function() {
+                g.remove();
+                //console.log('roundtrip done');
+                if (cb) { cb(); cb = undefined; }
+            });
+        };
+        var cbFailed;
+        var onClick = function() {
+            if (state === 2) {
+                onDone();
+                if (cbFailed) { cbFailed(); cbFailed = undefined; }
+                state = 0;
+            }
+        };
+
+        g.node.addEventListener('mousedown',  onClick);
+        g.node.addEventListener('touchstart', onClick);
+
+        g.animate({opacity:1}, 500, mina.easeinout);
+
+        return {
+            ok: function(cb) {
+                state = 1;
+                //console.log('ok');
+                setText('ok.');
+                onDone(cb);
+            },
+            failed: function(cb) {
+                state = 2;
+                //console.log('failed! retry?');
+                setText('failed! retry?');
+                cbFailed = cb;
+            }
+        }
+    };
+
+
+    // ajax using roundtrip to display state and trigger retry if failed
+    var ajax2 = function(oo) {
+        var rt = roundtrip();
+
+        ajax({
+            uri: oo.uri,
+            cb: function (err, o) {
+                if (err) {
+                    return rt.failed(function () {
+                        rt = roundtrip();
+                        o();
+                    });
+                }
+                else {
+                    rt.ok();
+                    oo.cb(err, o);
+                }
+            }
+        });
     };
 
 
@@ -207,11 +301,11 @@
 
 
     var reset = function() {
-        ajax({
+        ajax2({
             uri: [SERVER, 'new-game'].join('/'),
             cb: function(err, o) {
                 //if (err) { return alert(err); }
-                if (err) { return alert('server down?'); }
+                //if (err) { return alert('server down?'); }
                 if (o.err) { return alert(o.err); }
 
                 sfx.start();
@@ -365,11 +459,11 @@
 
                 var slot = parseInt( g.attr('class').substring(8), 10);
 
-                ajax({
+                ajax2({
                     uri: [SERVER, 'play', st.id, st.step, slot, pos2[0], pos2[1]].join('/'),
                     cb: function(err, o) {
                         //if (err) { return alert(err); }
-                        if (err) { return alert('server down?'); }
+                        //if (err) { return alert('server down?'); }
 
                         if (o.err) {
                             //alert(o.err);
@@ -414,11 +508,11 @@
                                     saveItem(LS_NAME, name);
                                     saveItem(LS_EMAIL, email);
 
-                                    ajax({
+                                    ajax2({
                                         uri: [SERVER, 'highscore', st.id, encodeURIComponent(email), encodeURIComponent(name)].join('/'),
                                         cb: function(err, o) {
-                                            //if (err) { return alert(err); }
-                                            if (err) { return alert('server down?'); }
+                                            if (err) { return alert(err); }
+                                            //if (err) { return alert('server down?'); }
 
                                             if (o.err) { alert(o.err); }
 
@@ -460,7 +554,7 @@
 
         hsc.click(function() {
             var y0 = 10;
-            ajax({
+            ajax2({
                 uri: [SERVER, 'highscores'].join('/'),
                 cb: function(err, o) {
                     if (err) { return; }
@@ -515,7 +609,7 @@
         s.node.removeEventListener('mousedown',  setFullScreen);
         s.node.removeEventListener('touchstart', setFullScreen);
     };
-    if (HAS_TOUCH) {
+    if (0) { //HAS_TOUCH) {
         s.node.addEventListener('mousedown',  setFullScreen);
         s.node.addEventListener('touchstart', setFullScreen);
     }
@@ -552,6 +646,14 @@
             document.documentElement.className = 'light';
         }
     })();
+
+
+
+    var toggleSfx = function() {
+        sfxOn = sfxOn ? 0 : 1;
+        saveItem(LS_SFX_ON, sfxOn);
+        //document.documentElement.className = (themeLight ? 'light' : 'dark');
+    };
 
 
 

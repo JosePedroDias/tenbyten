@@ -17,8 +17,8 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * `DONE   ` client: make client use server
 * `DONE   ` client: store name, email and theme on localStorage
 * `DONE   ` client: add some animations (line shrinking pieces, alert fade)
-* `ONGOING` client: create sfx w/ webaudio?
-* `TODO   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
+* `DONE   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
+* `ONGOING` client: create sfx w/ webaudio (failing on most mobile browsers?)
 * `TODO   ` server: try to limit server load (w/ toobusy)
 * `TODO   ` client: make it work on windows phone (lock scroll)
 
@@ -29,7 +29,11 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 ## resources
 
 ### assets:
-* comfortaa font [1](http://www.dafont.com/pt/comfortaa.font)
+* [comfortaa font](http://www.dafont.com/pt/comfortaa.font)
+* [white balance sunlight icon](http://www.flaticon.com/free-icon/white-balance-sunlight-mode_61401) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+* [camera night mode icon](http://www.flaticon.com/free-icon/camera-night-mode_61412) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+* [ecg lines icon](http://www.flaticon.com/free-icon/ecg-lines_26589) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+
 
 ### client-side libs:
 * <http://snapsvg.io/> <http://snapsvg.io/docs/>
