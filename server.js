@@ -1,5 +1,6 @@
 var express = require('express');
 var winston = require('winston');
+//var toobusy = require('toobusy');
 
 var fs = require('fs');
 
@@ -84,9 +85,17 @@ var app = express();
 
 app.set('x-powered-by', false);
 
-app.use(allowCrossDomain);
+// middleware which blocks requests when we're too busy
+/*app.use(function(req, res, next) {
+    if (toobusy()) {
+        res.send(503, 'server too busy. retry later');
+    }
+    else {
+        next();
+    }
+});*/
 
-//app.use('/static', express.static('static'));
+app.use(allowCrossDomain);
 
 
 
@@ -242,7 +251,7 @@ if (true) {
 
 
 
-app.listen(PORT, function() {
+var server = app.listen(PORT, function() {
     winston.log('info', 'tenbyten server listening on port %d...', PORT);
 });
 
@@ -270,3 +279,11 @@ setInterval(
     },
     CLEANSWEEP_INTERVAL
 );
+
+
+
+/*process.on('SIGINT', function() {
+    server.close();
+    toobusy.shutdown(); // calling .shutdown allows your process to exit normally
+    process.exit();
+});*/

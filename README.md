@@ -18,8 +18,10 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * `DONE   ` client: store name, email and theme on localStorage
 * `DONE   ` client: add some animations (line shrinking pieces, alert fade)
 * `DONE   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
-* `ONGOING` client: create sfx w/ webaudio (failing on most mobile browsers?)
-* `TODO   ` server: try to limit server load (w/ toobusy)
+* `DONE   ` client: create sfx w/ webaudio
+* `ONGOING` server: try to limit server load w/ toobusy
+* `TODO   ` client: toggle sound button; use alternate svg icons
+* `TODO   ` client: make sfx work on mobile browsers or fallback impl with samples
 * `TODO   ` client: make it work on windows phone (lock scroll)
 
 
@@ -36,13 +38,11 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 
 
 ### client-side libs:
-* <http://snapsvg.io/> <http://snapsvg.io/docs/>
-* NOT IN USE YET <https://github.com/loov/jsfx> <https://rawgit.com/loov/jsfx/master/index.html>
+* [snapSVG](http://snapsvg.io/) - SVG rendering lib
+* [jsfx](https://github.com/loov/jsfx) - web audio sound effects
 
 ### server-side modules:
-* NOT IN USE YET <http://passportjs.org/>
-* NOT IN USE YET <https://github.com/lloyd/node-toobusy> <https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5/>
-* NOT IN USE YET <https://github.com/dudleycarr/ratelimit.js>
+* [too-busy](https://github.com/lloyd/node-toobusy) [article](https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5) - return errors if server too busy
 
 
 ----
