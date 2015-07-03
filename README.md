@@ -19,11 +19,15 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * `DONE   ` client: add some animations (line shrinking pieces, alert fade)
 * `DONE   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
 * `DONE   ` client: create sfx w/ webaudio
-* `ONGOING` server: try to limit server load w/ toobusy
+* `DONE   ` server: added stats endpoint
+* `DONE   ` client: made stats page
 * `TODO   ` client: toggle sound button; use alternate svg icons
 * `TODO   ` client: make sfx work on mobile browsers or fallback impl with samples
-* `TODO   ` client: make it work on windows phone (lock scroll)
+* `TODO   ` server: store whole game in server for replay
 
+* `TODO   ` client: mode which receives an id for a recorded session and plays it
+* `TODO   ` client: make it work on windows phone (lock scroll)
+* `TODO   ` client: display credits on 8bit font and ribbon to the github repos 
 
 ----
 
@@ -31,7 +35,9 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 ## resources
 
 ### assets:
-* [comfortaa font](http://www.dafont.com/pt/comfortaa.font)
+* [Comfortaa font](http://www.dafont.com/pt/comfortaa.font) by [Johan Aakerlund](https://plus.google.com/+JohanAakerlund/about)
+* [Pixel Gosub font](http://www.dafont.com/pt/pixel-gosub.font) by [Pixel Sagas](http://www.pixelsagas.com/)
+<!--* [Press Start 2P font](http://www.dafont.com/pt/press-start-2p.font) by [codeman38](http://www.zone38.net/font/)-->
 * [white balance sunlight icon](http://www.flaticon.com/free-icon/white-balance-sunlight-mode_61401) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * [camera night mode icon](http://www.flaticon.com/free-icon/camera-night-mode_61412) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 * [ecg lines icon](http://www.flaticon.com/free-icon/ecg-lines_26589) made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
@@ -42,7 +48,8 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * [jsfx](https://github.com/loov/jsfx) - web audio sound effects
 
 ### server-side modules:
-* [too-busy](https://github.com/lloyd/node-toobusy) [article](https://hacks.mozilla.org/2013/01/building-a-node-js-server-that-wont-melt-a-node-js-holiday-season-part-5) - return errors if server too busy
+* [response-time](https://github.com/expressjs/response-time) - returns response header `X-Response-Time`
+* [express-stats](https://github.com/chieffancypants/express-stats) - measures several server stats, returning them at an endpoint (customized it)
 
 
 ----

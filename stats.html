@@ -35,6 +35,9 @@
             var SERVER = 'http://stage.sl.pt:3000';
             //var SERVER = 'http://127.0.0.1:3000';
 
+            var READING_DELTA = 5000; //ms
+            var NR_READINGS_IN_WINDOW = 100; // 8min 20s
+
 
 
             var ajax = function ajax(o) {
@@ -55,7 +58,6 @@
 
             var ch;
             function fetch() {
-                setTimeout(fetch, 1000);
                 ajax({
                     uri: SERVER + '/stats',
                     cb: function(err, o) {
@@ -73,14 +75,14 @@
                     }
                 })
             };
+            setInterval(fetch, READING_DELTA);
 
-            var numReads = 50;
             var getData = function() {
                 var data = [];
                 var time = (new Date()).getTime();
-                for (var i = -numReads; i <= 0; i += 1) {
+                for (var i = -NR_READINGS_IN_WINDOW; i <= 0; i += 1) {
                     data.push({
-                        x: time + i * 1000,
+                        x: time + i * READING_DELTA,
                         y: 0
                     });
                 }
