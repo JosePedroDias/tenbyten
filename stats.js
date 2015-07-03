@@ -19,7 +19,7 @@ module.exports = function (options) {
 
     var defaultOptions = {
         url        : '/health',
-        cacheSize  : 100,
+        cacheSize  : 20,
         appVersion : undefined,
         statusCheck: function() {}
     };

@@ -62,12 +62,14 @@
                         if (err) { return; }
 
                         var t = (new Date()).getTime();
-                        ch.series[0].addPoint([t, o.avgResponseTimeMs],           true, true);
-                        ch.series[1].addPoint([t, bytesToMB(o.memory.rss)],       true, true);
-                        ch.series[2].addPoint([t, bytesToMB(o.memory.heapUsed)],  true, true);
-                        ch.series[3].addPoint([t, bytesToMB(o.memory.heapTotal)], true, true);
-                        ch.series[4].addPoint([t, o.status.activeSessions],       true, true);
-                        ch.series[5].addPoint([t, o.status.highscores],           true, true);
+                        var s = -1;
+                        ch.series[++s].addPoint([t, o.avgResponseTimeMs],           true, true);
+                        ch.series[++s].addPoint([t, o.status.activeSessions],       true, true);
+                        ch.series[++s].addPoint([t, o.status.highscores],           true, true);
+                        //ch.series[++s].addPoint([t, bytesToMB(o.memory.rss)],       true, true);
+                        //ch.series[++s].addPoint([t, bytesToMB(o.memory.heapUsed)],  true, true);
+                        //ch.series[++s].addPoint([t, bytesToMB(o.memory.heapTotal)], true, true);
+                        //ch.redraw();
                     }
                 })
             };
@@ -118,24 +120,25 @@
                         title: { text: 'avg response time' }
                     },
                     {
-                        labels: { format: '{value} MB' },
-                        title: { text: 'memory' }
-                    },
-                    {
                         labels: { format: '{value}' },
                         title: { text: 'pax' }
+                    },
+                    {
+                        labels: { format: '{value} MB' },
+                        title: { text: 'memory' }
                     }
                 ],
                 tooltip: {
-                    shared: true
+                    shared: true,
+                    crosshairs: true
                 },
                 series: [
-                    {name: 'avg response time', data: data0, yAxis:0},
-                    {name: 'stack',             data: data0, yAxis:1},
-                    {name: 'heap used',         data: data0, yAxis:1},
-                    {name: 'heap total',        data: data0, yAxis:1},
-                    {name: 'active sessions',   data: data0, yAxis:2},
-                    {name: 'highscores',        data: data0, yAxis:2}
+                    {name: 'avg response time', data: data0, yAxis:0, marker: {enabled:false} },
+                    {name: 'active sessions',   data: data0, yAxis:1, marker: {enabled:false} },
+                    {name: 'highscores',        data: data0, yAxis:1, marker: {enabled:false} },
+                    //{name: 'stack',             data: data0, yAxis:2, marker: {enabled:false} },
+                    //{name: 'heap used',         data: data0, yAxis:2, marker: {enabled:false} },
+                    //{name: 'heap total',        data: data0, yAxis:2, marker: {enabled:false} },
                 ]
             });
         </script>
