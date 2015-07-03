@@ -16,3 +16,7 @@
 
 
 #wget https://raw.githubusercontent.com/loov/jsfx/master/jsfx.js
+
+
+#wget http://code.highcharts.com/adapters/standalone-framework.js
+#wget http://code.highcharts.com/highcharts.js

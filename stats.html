@@ -23,7 +23,13 @@
             }
         </style>
 
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+
+        <script src="vendor/standalone-framework.js"></script>
+        <script src="vendor/highcharts.js"></script>
+    </head>
+
+    <body>
+        <div id="container"></div>
 
         <script type="text/javascript">
             //var SERVER = 'http://stage.sl.pt:3000';
@@ -80,67 +86,58 @@
             };
             var data0 = getData();
 
-            $(function () {
-                $(document).ready(function () {
-                    Highcharts.setOptions({
-                        global: {
-                            useUTC: false
-                        }
-                    });
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
 
-                    $('#container').highcharts({
-                        chart: {
-                            type: 'spline',
-                            animation: Highcharts.svg, // don't animate in old IE
-                            marginRight: 10,
-                            events: {
-                                load: function () {
-                                    ch = this;
-                                    fetch();
-                                }
-                            }
-                        },
-                        title: {
-                            text: 'tenbyten server stats'
-                        },
-                        xAxis: {
-                            type: 'datetime',
-                            tickPixelInterval: 150
-                        },
-                        yAxis: [
-                            {
-                                labels: { format: '{value} ms' },
-                                title: { text: 'avg response time' }
-                            },
-                            {
-                                labels: { format: '{value} MB' },
-                                title: { text: 'memory' }
-                            },
-                            {
-                                labels: { format: '{value}' },
-                                title: { text: 'pax' }
-                            }
-                        ],
-                        tooltip: {
-                            shared: true
-                        },
-                        series: [
-                            {name: 'avg response time', data: data0, yAxis:0},
-                            {name: 'stack',             data: data0, yAxis:1},
-                            {name: 'heap used',         data: data0, yAxis:1},
-                            {name: 'heap total',        data: data0, yAxis:1},
-                            {name: 'active sessions',   data: data0, yAxis:2},
-                            {name: 'highscores',        data: data0, yAxis:2}
-                        ]
-                    });
-                });
+            ch = new Highcharts.Chart({
+                chart: {
+                    renderTo: document.getElementById('container'),
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function () {
+                            ch = this;
+                            fetch();
+                        }
+                    }
+                },
+                title: {
+                    text: 'tenbyten server stats'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: [
+                    {
+                        labels: { format: '{value} ms' },
+                        title: { text: 'avg response time' }
+                    },
+                    {
+                        labels: { format: '{value} MB' },
+                        title: { text: 'memory' }
+                    },
+                    {
+                        labels: { format: '{value}' },
+                        title: { text: 'pax' }
+                    }
+                ],
+                tooltip: {
+                    shared: true
+                },
+                series: [
+                    {name: 'avg response time', data: data0, yAxis:0},
+                    {name: 'stack',             data: data0, yAxis:1},
+                    {name: 'heap used',         data: data0, yAxis:1},
+                    {name: 'heap total',        data: data0, yAxis:1},
+                    {name: 'active sessions',   data: data0, yAxis:2},
+                    {name: 'highscores',        data: data0, yAxis:2}
+                ]
             });
         </script>
-    </head>
-
-    <body>
-        <div id="container"></div>
-
-        <script src="http://code.highcharts.com/highcharts.js"></script>
     </body>
 </html>
