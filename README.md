@@ -22,12 +22,13 @@ I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)
 * [x] client: create sfx w/ webaudio
 * [x] server: added stats endpoint
 * [x] client: made stats page
-* [ ] client: toggle sound button; use alternate svg icons
-* [ ] client: make sfx work on mobile browsers or fallback impl with samples
+* [x] client: toggle sound button; use alternate svg icons
+* [x] client: display credits on 8bit font and ribbon to the github repos
+* [x] client: make sfx work on mobile browsers or fallback impl with samples (using audacity and soundflower)
 * [ ] server: store whole game in server for replay
 * [ ] client: mode which receives an id for a recorded session and plays it
 * [ ] client: make it work on windows phone (lock scroll)
-* [ ] client: display credits on 8bit font and ribbon to the github repos 
+
 
 ----
 
