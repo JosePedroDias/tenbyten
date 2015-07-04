@@ -700,12 +700,12 @@
             .addClass('credits')
             .addClass('fill-0');
 
-        var b=s .path('m 93,-10 l 6,0 l 6,6 l 0,6 z') //12x12 (105-12)
-                .attr('fill', '#FF0000');
+        var b=s .path('m 93,-10 l 6,0 l 6,6 l 0,6 z'); //12x12 (105-12)
 
         var c=s   .text(0, 0, 'fork me')
             .attr('text-anchor', 'middle')
             .attr('font-size', 2.5)
+            .attr('opacity', 0.75)
             .addClass('credits')
             .addClass('fill-0')
             .transform(

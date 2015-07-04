@@ -4,31 +4,30 @@
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
 
-* [cli w/ server-side validation](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
-* [local play](http://rawgit.com/JosePedroDias/tenbyten/master/local.html)
-
+* [play w/ server-side validation and global highscores](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
+* [local play (older version)](http://rawgit.com/JosePedroDias/tenbyten/master/local.html)
+<!-- * [server stats](http://rawgit.com/JosePedroDias/tenbyten/master/stats.html) -->
 
 
 ## roadmap
 
-* `DONE   ` client: mimic game rules and layout
-* `DONE   ` both:   refactor logic so it can run in bot client and server-side
-* `DONE   ` client: rewrite client with common refactoring
-* `DONE   ` server: deploy server to validate ongoing games and store highscores
-* `DONE   ` client: make client use server
-* `DONE   ` client: store name, email and theme on localStorage
-* `DONE   ` client: add some animations (line shrinking pieces, alert fade)
-* `DONE   ` client: handle server timeout better: lock while communicating; retry n times, allow retry later
-* `DONE   ` client: create sfx w/ webaudio
-* `DONE   ` server: added stats endpoint
-* `DONE   ` client: made stats page
-* `TODO   ` client: toggle sound button; use alternate svg icons
-* `TODO   ` client: make sfx work on mobile browsers or fallback impl with samples
-* `TODO   ` server: store whole game in server for replay
-
-* `TODO   ` client: mode which receives an id for a recorded session and plays it
-* `TODO   ` client: make it work on windows phone (lock scroll)
-* `TODO   ` client: display credits on 8bit font and ribbon to the github repos 
+* [x] client: mimic game rules and layout
+* [x] both:   refactor logic so it can run in bot client and server-side
+* [x] client: rewrite client with common refactoring
+* [x] server: deploy server to validate ongoing games and store highscores
+* [x] client: make client use server
+* [x] client: store name, email and theme on localStorage
+* [x] client: add some animations (line shrinking pieces, alert fade)
+* [x] client: handle server timeout better: lock while communicating; retry n times, allow retry later
+* [x] client: create sfx w/ webaudio
+* [x] server: added stats endpoint
+* [x] client: made stats page
+* [ ] client: toggle sound button; use alternate svg icons
+* [ ] client: make sfx work on mobile browsers or fallback impl with samples
+* [ ] server: store whole game in server for replay
+* [ ] client: mode which receives an id for a recorded session and plays it
+* [ ] client: make it work on windows phone (lock scroll)
+* [ ] client: display credits on 8bit font and ribbon to the github repos 
 
 ----
 
