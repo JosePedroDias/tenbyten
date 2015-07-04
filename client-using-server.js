@@ -699,17 +699,32 @@
             .attr('text-anchor', 'middle')
             .addClass('credits')
             .addClass('fill-0');
-        s   .path('m 93,-10 l 6,0 l 6,6 l 0,6 z') //12x12 (105-12)
-            .addClass('ribbon');
-        s   .text(93+6, -10+6, 'fork me')
+
+        var b=s .path('m 93,-10 l 6,0 l 6,6 l 0,6 z') //12x12 (105-12)
+                .attr('fill', '#FF0000');
+
+        var c=s   .text(0, 0, 'fork me')
             .attr('text-anchor', 'middle')
+            .attr('font-size', 2.5)
             .addClass('credits')
             .addClass('fill-0')
             .transform(
                 Snap.matrix()
-                    //.rotate(45)
+                    .translate(93+6, -10+6)
+                    .translate(0.7, -0.7)
+                    .rotate(45)
                     .toTransformString()
             );
+
+        var onClick = function() {
+            window.open('http://github.com/JosePedroDias/tenbyten');
+        };
+
+        var g = s.group(b, c);
+        g.addClass('ribbon');
+        g.node.addEventListener('mousedown',  onClick);
+        g.node.addEventListener('touchstart', onClick);
+
     })();
 
 

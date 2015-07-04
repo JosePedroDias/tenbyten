@@ -73,6 +73,10 @@ text, path { fill: #FFFFFF; }
     font-size: 2px;
 }
 
+.ribbon {
+    fill: #FF0000;
+    cursor: pointer;
+}
 
 /* font */
 @font-face {

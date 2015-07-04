@@ -4,8 +4,9 @@
 
 I'm programming a clone of the popular mobile game [1010!](http://1010ga.me/)  
 
-* [local play](http://rawgit.com/JosePedroDias/tenbyten/master/local.html)
 * [cli w/ server-side validation](http://rawgit.com/JosePedroDias/tenbyten/master/index.html)
+* [local play](http://rawgit.com/JosePedroDias/tenbyten/master/local.html)
+
 
 
 ## roadmap
