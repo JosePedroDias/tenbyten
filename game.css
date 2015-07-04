@@ -73,7 +73,7 @@ text, path { fill: #FFFFFF; }
     font-size: 2px;
 }
 
-.ribbon {
+.signature, .ribbon {
     cursor: pointer;
 }
 
@@ -85,12 +85,12 @@ text, path { fill: #FFFFFF; }
     src: local('Comfortaa'), url(vendor/Comfortaa.ttf) format('truetype');
 }
 
-@font-face {
+/*@font-face {
     font-family: 'PressStart2P';
     font-style: normal;
     font-weight: 400;
     src: local('PressStart2P'), url(vendor/PressStart2P.ttf) format('truetype');
-}
+}*/
 
 @font-face {
     font-family: 'PixelGosub';

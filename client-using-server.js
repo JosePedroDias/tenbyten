@@ -695,10 +695,18 @@
 
     // credits
     (function() {
-        s   .text(50, 130-2, 'developed in 2015 by José Pedro Dias')
+        var onClickGo = function(el, url) {
+            var onClick = function() { window.open(url); };
+            el.node.addEventListener('mousedown',  onClick);
+            el.node.addEventListener('touchstart', onClick);
+        };
+
+        var t =s.text(50, 130-2, 'developed in 2015 by José Pedro Dias')
             .attr('text-anchor', 'middle')
             .addClass('credits')
+            .addClass('signature')
             .addClass('fill-0');
+        onClickGo(t, 'http://josepedrodias.com/');
 
         var b=s .path('m 93,-10 l 6,0 l 6,6 l 0,6 z'); //12x12 (105-12)
 
@@ -716,15 +724,9 @@
                     .toTransformString()
             );
 
-        var onClick = function() {
-            window.open('http://github.com/JosePedroDias/tenbyten');
-        };
-
         var g = s.group(b, c);
         g.addClass('ribbon');
-        g.node.addEventListener('mousedown',  onClick);
-        g.node.addEventListener('touchstart', onClick);
-
+        onClickGo(g, 'https://github.com/JosePedroDias/tenbyten');
     })();
 
 
