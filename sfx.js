@@ -57,7 +57,7 @@
         }
         else { // NONE
             sfx = {};
-            names.forEach(function(name) {
+            sampleNames.forEach(function(name) {
                 sfx[name] = noop;
             });
         }
